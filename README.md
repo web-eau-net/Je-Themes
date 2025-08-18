@@ -6,7 +6,7 @@ If you need or want to change the template fo your Joomla site, you'll need to s
 
 But that was before!
 
-Thanks to the **Je Themes** plugin, thousands of latest-generation Joomla templates are now directly accessible from your admin panel. Filter and use the keyword search to find what you're looking for in just a few minutes.
+Thanks to the **Je Themes** plugin, thousands of latest-generation Joomla templates are now directly accessible from your admin panel, but not installable. Filter and use the keyword search to find what you're looking for in just a few minutes.
 
 ### Licence
 
