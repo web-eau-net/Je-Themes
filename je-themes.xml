@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="installer" method="upgrade">
+
+	<name>plg_installer_templatejoomla</name>
+    <element>templatejoomla</element>
+	<author>web-eau-net</author>
+	<version>1.0.0</version>
+	<creationDate>2025-01</creationDate>
+	<authorEmail>daniel@web-eau.net</authorEmail>
+	<authorUrl>https://web-eau.net</authorUrl>
+	<copyright>Copyright (C) 2025 web-eau-net. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<description>PLG_INSTALLER_TEMPLATEJOOMLA_XML_DESCRIPTION</description>
+
+	<namespace path="src">Joomla\Plugin\Installer\Templatejoomla</namespace>
+
+	<files>
+		<folder plugin="templatejoomla">services</folder>
+		<folder>src</folder>
+		<folder>tmpl</folder>
+	</files>
+
+	<media folder="media" destination="plg_installer_templatejoomla">
+		<folder>js</folder>
+		<folder>css</folder>
+	</media>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/plg_installer_templatejoomla.ini</language>
+		<language tag="en-GB">en-GB/plg_installer_templatejoomla.sys.ini</language>
+		<language tag="fr-FR">fr-FR/plg_installer_templatejoomla.ini</language>
+		<language tag="fr-FR">fr-FR/plg_installer_templatejoomla.sys.ini</language>
+	</languages>
+
+	<updateservers>
+		<server type="extension" name="templatejoomla">http://web-eau.net/files/template-joomla/templatejoomla.xml</server>
+	</updateservers>
+
+</extension>
