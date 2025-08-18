@@ -6,4 +6,4 @@ But that was before!
 
 Thanks to the **Je Themes** plugin, thousands of latest-generation Joomla templates are now directly accessible from your admin panel. Filter and use the keyword search to find what you're looking for in just a few minutes.
 
-This free plugin is release under the [GNU-GPL V3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
+This free plugin is release under the [GNU-GPL V3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) licence.
