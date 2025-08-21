@@ -34,7 +34,7 @@
 	</languages>
 
 	<updateservers>
-		<server type="extension" name="jethemes">https://web-eau.net/files/jethemes/jethemes.xml</server>
+		<server type="extension" name="jethemes">https://web-eau.net/files/je-themes/je-themes.xml</server>
 	</updateservers>
 	<scriptfile>script.php</scriptfile>
 </extension>
