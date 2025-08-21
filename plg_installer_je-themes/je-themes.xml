@@ -5,20 +5,17 @@
     <element>je-themes</element>
 	<author>web-eau-net</author>
 	<version>1.0.0</version>
-	<creationDate>2025-01</creationDate>
+	<creationDate>2025-08</creationDate>
 	<authorEmail>daniel@web-eau.net</authorEmail>
 	<authorUrl>https://web-eau.net</authorUrl>
 	<copyright>Copyright (C) 2025 web-eau-net. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later</license>
 	<description>PLG_INSTALLER_TEMPLATEJOOMLA_XML_DESCRIPTION</description>
 
-	<namespace path="src">Joomla\Plugin\Installer\Je-Themes</namespace>
-
-	<scriptfile>script.php</scriptfile>
+	<namespace path="src">Joomla\Plugin\Installer\Templatejoomla</namespace>
 
 	<files>
-		<folder plugin="templatejoomla">services</folder>
-		<filename>script.php</filename>
+		<folder plugin="je-themes">services</folder>
 		<folder>src</folder>
 		<folder>tmpl</folder>
 	</files>
@@ -36,7 +33,7 @@
 	</languages>
 
 	<updateservers>
-		<server type="extension" name="templatejoomla">http://web-eau.net/files/je-themes/je-themes.xml</server>
+		<server type="extension" name="je-themes">https://web-eau.net/files/je-themes/je-themes.xml</server>
 	</updateservers>
 
 </extension>

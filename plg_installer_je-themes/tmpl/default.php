@@ -72,7 +72,7 @@ use Joomla\CMS\Language\Text;
 
 		<?php // Load more button (for pagination) ?>
 		<div class="text-center mt-4">
-			<button id="tj-load-more" class="btn btn-outline-primary d-none"><?php echo Text::_('PLG_INSTALLER_TEMPLATEJOOMLA_LOADMORE'); ?></button>
+			<button id="tj-load-more" class="btn btn-info text-white d-none"><?php echo Text::_('PLG_INSTALLER_TEMPLATEJOOMLA_LOADMORE'); ?></button>
 		</div>
 
 		<?php // Status messages ?>

@@ -1,11 +1,3 @@
-Voici le fichier du plugin qui affiche les templates dans le backend des utilisateurs.
-Il me faut un badge différent pour chaque version de Joomla:
-- badge bg-primary : Joomla5
-- badge bg-info : Joomla4
-Ajoute une petite marge entre si les deux badges sont affichés.
-
-----------
-
 (function () {
   'use strict';
 
@@ -365,76 +357,61 @@ Ajoute une petite marge entre si les deux badges sont affichés.
 
     const cardParts = [
       '<div class="col">',
-      '<div class="card h-100 shadow-sm template-card">',
+      '  <div class="card h-100 shadow-sm template-card">',
     ];
 
     // Image
     if (image) {
 	    image = proxy + encodeURIComponent(image);
 
-      cardParts.push(`<div class="card-img-top-container">`);
-      cardParts.push(`<img src="${image}" alt="${name}" class="card-img-top" loading="lazy" onerror="this.style.display='none'">`);
-      cardParts.push(`</div>`);
+      cardParts.push(`    <div class="card-img-top-container">`);
+      cardParts.push(`      <img src="${image}" alt="${name}" class="card-img-top" loading="lazy" onerror="this.style.display='none'">`);
+      cardParts.push(`    </div>`);
     }
 
-    cardParts.push('<div class="card-body d-flex flex-column">');
+    cardParts.push('    <div class="card-body d-flex flex-column">');
 
     // Title and author
-    cardParts.push(`<h4 class="card-title mb-2">${name}`);
+    cardParts.push(`      <h4 class="card-title mb-2">${name}`);
     if (author) {
-      cardParts.push(`<span class="small"> by ${author}</span>`);
+      cardParts.push(`      <span class="small"> by ${author}</span>`);
     }
-    cardParts.push(`</h4>`);
+    cardParts.push(`      </h4>`);
 
-	// Compatibility badges
-	if (compatibilities.length > 0) {
-		cardParts.push(`<div class="mb-2">`);
-
-		compatibilities.forEach((comp, idx) => {
-		  const c = String(comp).toLowerCase();
-		  let badgeClass = 'bg-secondary';
-
-		  if (c.includes('joomla5') || c.includes('j5')) {
-			badgeClass = 'bg-primary';
-		  } else if (c.includes('joomla4') || c.includes('j4')) {
-			badgeClass = 'bg-info';
-		  }
-
-		  cardParts.push(
-			`<span class="badge ${badgeClass} me-1">` +
-			`<i class="fab fa-joomla"></i> ${escapeHtml(comp)}` +
-			`</span>`
-		  );
-		});
-
-		cardParts.push(`</div>`);
-	}
+    // Compatibility badge
+    if (compatibility) {
+      cardParts.push(`      <div class="mb-2">`);
+      cardParts.push(`        <span class="badge bg-primary">`);
+      cardParts.push(`          <i class="fab fa-joomla"></i> ${compatibility}`);
+      cardParts.push(`        </span>`);
+      cardParts.push(`      </div>`);
+    }
 
     // Description
     if (intro) {
-      cardParts.push(`<p class="card-text text-muted small mb-3 flex-grow-1">${intro}</p>`);
+      cardParts.push(`      <p class="card-text text-muted small mb-3 flex-grow-1">${intro}</p>`);
     }
 
     // Action buttons
-    cardParts.push('<div class="mt-auto">');
-    cardParts.push('<div class="btn-group w-100" role="group">');
+    cardParts.push('      <div class="mt-auto">');
+    cardParts.push('        <div class="btn-group w-100" role="group">');
 
     if (demoUrl) {
-      cardParts.push(`<button type="button" class="btn btn-outline-primary btn-sm" data-tj-action="demo" data-url="${demoUrl}">`);
-      cardParts.push(`<i class="icon-eye"></i> ${texts.liveDemo || 'Demo'}`);
-      cardParts.push('</button>');
+      cardParts.push(`          <button type="button" class="btn btn-info text-white btn-sm" data-tj-action="demo" data-url="${demoUrl}">`);
+      cardParts.push(`            <i class="icon-eye"></i> ${texts.liveDemo || 'Demo'}`);
+      cardParts.push('          </button>');
     }
 
     if (downloadUrl) {
-      cardParts.push(`<button type="button" class="btn btn-primary btn-sm" data-tj-action="download" data-url="${downloadUrl}">`);
-      cardParts.push(`<i class="icon-download"></i> ${texts.learnMore || 'En savoir plus'}`);
-      cardParts.push('</button>');
+      cardParts.push(`          <button type="button" class="btn btn-primary btn-sm" data-tj-action="download" data-url="${downloadUrl}">`);
+      cardParts.push(`            <i class="icon-download"></i> ${texts.learnMore || 'En savoir plus'}`);
+      cardParts.push('          </button>');
     }
 
-    cardParts.push('</div>');
-    cardParts.push('</div>');
-    cardParts.push('</div>');
-    cardParts.push('</div>');
+    cardParts.push('        </div>');
+    cardParts.push('      </div>');
+    cardParts.push('    </div>');
+    cardParts.push('  </div>');
     cardParts.push('</div>');
 
     return cardParts.join('\n');
