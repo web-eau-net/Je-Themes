@@ -1,42 +1,52 @@
 (function () {
   'use strict';
 
-  // Utility functions
-  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
-  function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+	  // Utility functions
+	  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+	  function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
 
-  // Configuration from PHP
-  const cfg = window.TJ_CONFIG || {};
-  const endpoint = cfg.endpoint || 'https://templatejoomla.com/api/templates/templates.json';
-  const texts = cfg.texts || {};
+	  // Configuration from PHP
+	  const cfg = window.TJ_CONFIG || {};
+	  const endpoint = cfg.endpoint || 'https://templatejoomla.com/api/templates/templates.json';
+	  const texts = cfg.texts || {};
 
-  // DOM elements
-  const elContent = $('#tj-content');
-  const elResults = $('#tj-results');
-  const elEmpty = $('#tj-empty');
-  const elError = $('#tj-error');
-  const elInfo = $('#tj-info');
-  const elSearch = $('#tj-search');
-  const elCategory = $('#tj-category');
-  const elVersion = $('#tj-version');
-  const elSort = $('#tj-sort');
-  const elReset = $('#tj-reset');
-  const elLoadMore = $('#tj-load-more');
+	  // DOM elements
+	  const elContent = $('#tj-content');
+	  const elResults = $('#tj-results');
+	  const elEmpty = $('#tj-empty');
+	  const elError = $('#tj-error');
+	  const elInfo = $('#tj-info');
+	  const elSearch = $('#tj-search');
+	  const elCategory = $('#tj-category');
+	  const elVersion = $('#tj-version');
+	  const elSort = $('#tj-sort');
+	  const elReset = $('#tj-reset');
+	  const elLoadMore = $('#tj-load-more');
 
-  // State
-  let allItems = [];
-  let filteredItems = [];
-  let displayedItems = [];
-  let currentPage = 0;
-  const itemsPerPage = 12; // 4 items per row × 3 rows initially
-  const maxItems = 12000; // Max templates per page - Note Olivier: if so, filters won't work properly
+	  // State
+	  let allItems = [];
+	  let filteredItems = [];
+	  let displayedItems = [];
+	  let currentPage = 0;
+	  const itemsPerPage = 12; // 4 items per row × 3 rows initially
+	  const maxItems = 12000; // Max templates per page - Note Olivier: if so, filters won't work properly
 
-  let currentMajorJoomlaVersion = 5;
-  const proxy = 'https://corsproxy.io/?'; // or use https://api.allorigins.win/raw?url=
+	  let currentMajorJoomlaVersion = 5;
+	  const proxy = 'https://corsproxy.io/?'; // or use https://api.allorigins.win/raw?url=
 
-  /**
-   * Fetch JSON data with fallback URLs
-   */
+	function toCompatList(raw) {
+	  if (!raw) return [];
+	  if (Array.isArray(raw)) return raw.filter(Boolean);
+	  // If it's a string "Joomla4, Joomla5"
+	  return String(raw)
+		.split(/[,|]/)
+		.map(s => s.trim())
+		.filter(Boolean);
+	}
+
+	/**
+	* Fetch JSON data with fallback URLs
+	*/
   function fetchJSON() {
     showLoadingLayer();
     hideMessages();
@@ -139,7 +149,7 @@
       a.localeCompare(b, 'fr', { sensitivity: 'base' })
     );
 
-    const options = [`<option value="">${texts.allCategories || 'Toutes les catégories'}</option>`]
+    const options = [`<option value="">${texts.allCategories || 'All categories'}</option>`]
       .concat(sortedCategories.map(cat =>
         `<option value="${escapeHtml(cat)}">${escapeHtml(cat)}</option>`
       ));
@@ -214,7 +224,7 @@
   /**
    * Sort items based on selected criteria
    */
-  function sortItems(items, sortBy) {
+    function sortItems(items, sortBy = 'added') {
     const sorted = [...items];
 
     switch (sortBy) {
@@ -349,11 +359,11 @@
     const demoUrl = escapeHtml(item.demo_url || item.demo || '');
     const downloadUrl = escapeHtml(item.download_url || item.download || item.url || '');
 
-    let compatibility = item.compatibility || item.joomla_version || '';
+    /**let compatibility = item.compatibility || item.joomla_version || '';
     if (Array.isArray(compatibility)) {
       compatibility = compatibility.join(', ');
     }
-    compatibility = escapeHtml(compatibility);
+    compatibility = escapeHtml(compatibility);**/
 
     const cardParts = [
       '<div class="col">',
@@ -378,14 +388,31 @@
     }
     cardParts.push(`      </h4>`);
 
-    // Compatibility badge
-    if (compatibility) {
-      cardParts.push(`      <div class="mb-2">`);
-      cardParts.push(`        <span class="badge bg-primary">`);
-      cardParts.push(`          <i class="fab fa-joomla"></i> ${compatibility}`);
-      cardParts.push(`        </span>`);
-      cardParts.push(`      </div>`);
-    }
+
+	// Compatibility badge(s)
+	const compatList = toCompatList(item.compatibility || item.joomla_version);
+
+	if (compatList.length) {
+	  cardParts.push(`      <div class="mb-2">`);
+
+	  compatList.forEach(c => {
+		const label = String(c).trim();
+		const key = label.toLowerCase().replace(/\s+/g, '');
+
+		// mapping version -> classe Bootstrap
+		let badgeClass = 'badge bg-light text-dark';
+		if (key === 'joomla4' || key === 'j4') badgeClass = 'badge bg-secondary';
+		else if (key === 'joomla5' || key === 'j5') badgeClass = 'badge bg-primary';
+		else if (key === 'joomla6' || key === 'j6') badgeClass = 'badge bg-info';
+
+		cardParts.push(
+		  `        <span class="${badgeClass} me-1 mb-1"><i class="fab fa-joomla"></i> ${escapeHtml(label)}</span>`
+		);
+	  });
+
+	  cardParts.push(`      </div>`);
+	}
+
 
     // Description
     if (intro) {
