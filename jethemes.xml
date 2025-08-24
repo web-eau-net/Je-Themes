@@ -2,7 +2,7 @@
 <extension type="plugin" group="installer" method="upgrade">
 
 	<name>plg_installer_templatejoomla</name>
-    <element>je-themes</element>
+    <element>jethemes</element>
 	<author>web-eau-net</author>
 	<version>1.0.0</version>
 	<creationDate>2025-08</creationDate>
@@ -15,12 +15,13 @@
 	<namespace path="src">Joomla\Plugin\Installer\Templatejoomla</namespace>
 
 	<files>
-		<folder plugin="je-themes">services</folder>
+		<folder plugin="jethemes">services</folder>
 		<folder>src</folder>
 		<folder>tmpl</folder>
+		<filename>script.php</filename>
 	</files>
 
-	<media folder="media" destination="plg_installer_je-themes">
+	<media folder="media" destination="plg_installer_jethemes">
 		<folder>js</folder>
 		<folder>css</folder>
 	</media>
@@ -33,7 +34,7 @@
 	</languages>
 
 	<updateservers>
-		<server type="extension" name="je-themes">https://web-eau.net/files/je-themes/je-themes.xml</server>
+		<server type="extension" name="jethemes">https://web-eau.net/files/je-themes/je-themes.xml</server>
 	</updateservers>
-
+	<scriptfile>script.php</scriptfile>
 </extension>
